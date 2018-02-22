@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-libs/bootstrap-datetimepicker-build.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vidalink</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/Home/Index">Home</a></li>
+                <li><a href="/Tasks/Index">Tasks</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" action="/Tasks/Search">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="txtSearch" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+            </form>
+            @if (Session["UserName"] != null)
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Welcome @Session["UserName"].ToString()</a></li>
+                    <li><a href="/Home/Exit"><span class="glyphicon glyphicon-log-in"></span> Sair</a></li>
+                </ul>
+            }
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

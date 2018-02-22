@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Vidalink.Data.Task>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box">
+            <h2>&nbsp;&nbsp; List last tasks</h2>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExecDate)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+
+                        <a href="/Tasks/Edit/@item.TaskId">@item.Title</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExecDate)
+                    </td>
+                </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

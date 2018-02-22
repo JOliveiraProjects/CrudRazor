@@ -1,0 +1,97 @@
+﻿@model Vidalink.Data.Task
+@using FastLibrary.Service;
+@{
+    ViewBag.Title = "Edit";
+
+    var startDate = DateTime.Today;
+    if (Model != null && Model.TaskId > 0)
+    {
+        startDate = Model.ExecDate;
+    }
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box">
+            @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>&nbsp;&nbsp;&nbsp; Configurações Task</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.HiddenFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ExecDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class='input-group date' id='dtpStart'>
+                        <input type='text' class="form-control" autocomplete="off" name="ExecDate" id="ExecDate" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.ExecDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+            <div>
+                &nbsp;&nbsp;&nbsp; @Html.ActionLink("Voltar", "Index")
+            </div>
+
+            @section Scripts {
+                <script src="~/Scripts/moment-with-locales.min.js"></script>
+                <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#dtpStart').datetimepicker(
+                            {
+                                locale: 'pt-br',
+                                format: 'YYYY-MM-DDTHH:mm:ss',
+                                sideBySide: false,
+                                defaultDate: new Date(@Html.Raw(startDate.ToJsonFl()))
+                            }).data("DateTimePicker");
+                    });
+                </script>
+            }
+        </div>
+    </div>
+</div>
